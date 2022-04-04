@@ -1,0 +1,88 @@
+
+
+df_old  = read.csv(file="C:/Users/Donald/Desktop/401/DS_IMPUTE/HMEQ.csv", header=TRUE, sep=",")
+df = df_old
+
+print( head( df ) )
+print( tail( df ) )
+
+
+print( str( df ) )
+print( nrow( df ) )
+print( length( df ) )
+
+
+
+print( summary( df ) )
+print( summary( df$MORTDUE ) )
+
+
+print( with( df, tapply( DEBTINC, BAD, mean, na.rm=TRUE ) ) )
+print( with( df, tapply( CLNO, BAD, mean, na.rm=TRUE ) ) )
+
+
+
+df$M_DEBTINC = is.na( df$DEBTINC )
+df$M_DEBTINC = is.na( df$DEBTINC ) + 0
+print( with( df, tapply( M_DEBTINC, BAD, mean, na.rm=TRUE ) ) )
+
+
+mean( df$DEBTINC, na.rm=TRUE )
+df$IMP_DEBTINC = df$DEBTINC
+df$IMP_DEBTINC = ifelse(is.na( df$IMP_DEBTINC ), 34, df$IMP_DEBTINC )
+
+print( head(df) )
+df = subset(df, select = -c( DEBTINC ) )
+print( head(df) )
+
+
+
+
+print( with( df, tapply( BAD, JOB, mean, na.rm=TRUE ) ) )
+df$IMP_JOB = df$JOB
+df$IMP_JOB = ifelse(df$JOB == "", "UNKNOWN", as.character(df$IMP_JOB) )
+#df$IMP_JOB = ifelse(df$JOB == "", "UNKNOWN", df$IMP_JOB )
+
+print( head(df) )
+df = subset(df, select = -c( JOB ) )
+print( head(df) )
+
+
+
+* REMOVE OUTLIERS
+
+hist( df$IMP_DEBTINC  )
+boxplot( df$IMP_DEBTINC  )
+
+a = max( df$IMP_DEBTINC, na.rm=TRUE )
+z = min( df$IMP_DEBTINC, na.rm=TRUE )
+m = mean( df$IMP_DEBTINC, na.rm=TRUE )
+s = sd( df$IMP_DEBTINC, na.rm=TRUE )
+
+df$IMP_DEBTINC = ifelse( df$IMP_DEBTINC > m+3*s, m+3*s, df$IMP_DEBTINC )
+df$IMP_DEBTINC = ifelse( df$IMP_DEBTINC < m-3*s, m-3*s, df$IMP_DEBTINC )
+
+hist( df$IMP_DEBTINC  )
+boxplot( df$IMP_DEBTINC  )
+
+a = max( df$IMP_DEBTINC, na.rm=TRUE )
+z = min( df$IMP_DEBTINC, na.rm=TRUE )
+m = mean( df$IMP_DEBTINC, na.rm=TRUE )
+s = sd( df$IMP_DEBTINC, na.rm=TRUE )
+
+
+
+
+table( df$IMP_JOB )
+pie( table(df$IMP_JOB) )
+
+
+print( with( df, tapply( BAD, IMP_JOB, mean ) ) )
+df$FLAG_JOB_RISKY = ifelse(df$IMP_JOB %in% c("Self","Sales"), 1, 0 )
+
+
+
+
+
+
+

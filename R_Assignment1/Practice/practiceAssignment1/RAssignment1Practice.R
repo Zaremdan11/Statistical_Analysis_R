@@ -1,0 +1,31 @@
+
+a<- c(0,1,2,3,4)
+b<- c(13)
+c<- rep(c(2, -5.1, -23),3)
+d<- c(7/42, 3, 35/42)
+e<- sum(d)
+f<- append(a,b, after = 5)
+g<- append(f,c, after = 6)
+h<- append(g,e, after = 15)
+print(h)
+i <- sort(h)
+print(i)
+length(i)
+L <- length(i)
+print(L)
+n <- seq(from = L, to =1)
+print(n)
+print(i)
+o <- n + i
+print(o)
+p <- o[1]
+q <- o[16]
+r <- c(p,q)
+s <- o[2:15]
+print(o)
+print(r)
+print(s)
+t <- append(r,s, after = 1)
+print(t)
+u<- sum(round(t,2))
+print(u)

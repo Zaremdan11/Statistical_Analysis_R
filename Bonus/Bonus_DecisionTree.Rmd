@@ -1,0 +1,44 @@
+---
+title: "Bonus Decsion Tree (10 points total)"
+author: "Zaremba, Dan"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include = FALSE}
+# DO NOT ADD OR REVISE CODE HERE
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE)
+
+```
+
+-----
+
+**Bonus Decision Tree:**
+
+Using the "R" programming language, use the "rpart" library to develop a Decision Tree that predicts survival on the Titanic.
+
+```{r Example, eval = TRUE, echo = TRUE}
+
+library(rpart)
+library(rpart.plot)
+library(RColorBrewer)
+
+mydata <-  read.csv("titanic.csv") 
+
+
+binary.model <- rpart(Survived ∼ Pclass + Sex + Age + FamilyMember + Cabin + Embarked, data = mydata, cp = .02) 
+
+rpart.plot(binary.model)
+```
+
+**Question:  A brief discussion of the types of characteristics that increased or decreased survival chances on the Titanic**
+
+***Answer: (The decision tree shows that Sex was the best characteristic to look at when calculating the survival chances on the Titanic, Males only had a 19% survival rate while woman had at 74% chance, interesting to see that in the right side of the tree meaning the population that were woman where the Pclass was greater or equal to the the survival rate plummets to .5% this is 16% of the population, as opposed to Woman that had a Pclass less than 3, their survival rate was 95%. On the left side of the Tree (Males) the characteric Cabin is statistically relevant we see if the males were in Cabin T or Z the they had a significatly lower chance of survival 14% compared to Males that weren't in cabin T or Z 42%.)***
+
+-----
+
+Submit both the .Rmd and .html files for grading. You may remove the instructions and example problem above, but do not remove the YAML metadata block or the first, "setup" code chunk.  Address the steps that appear below and answer all the questions. Be sure to address each question with code and comments as needed.  You may use either base R functions or ggplot2 for the visualizations.
+
+-----
+
